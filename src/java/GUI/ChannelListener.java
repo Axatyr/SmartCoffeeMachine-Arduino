@@ -1,7 +1,8 @@
 package GUI;
 
 import eiot.*;
-import State;
+
+import java.util.Scanner;
 
 public class ChannelListener extends Thread {
 
@@ -19,25 +20,25 @@ public class ChannelListener extends Thread {
 			try {
 				String msg = channel.receiveMsg();
 				if(msg == "Working"){
-					state.setState("Working");
+					;
+					view.state.setState("Working");
 				} else if (msg == "Idle") {
-					state.setState("Idle");
+					view.state.setState("Idle");
 				} else if (msg == "Assistance"){
-					state.setState("Assistance");
+					view.state.setState("Assistance");
 				} else if (msg == "SelfTestPassed") {
-					selfTestPassed++;
+					view.selfTestPassed++;
 				} else if (msg.contains("Coffee")){
-					input = scanner.nextLine();
-					coffee = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+					String input = scanner.nextLine();
+					view.coffee = Integer.parseInt(input.replaceAll("[^0-9]", ""));
 				} else if (msg.contains("Chocolate")){
-					input = scanner.nextLine();
-					chocolate = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+					String input = scanner.nextLine();
+					view.chocolate = Integer.parseInt(input.replaceAll("[^0-9]", ""));
 				} else if (msg.contains("Tea")){
-					input = scanner.nextLine();
-					tea = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+					String input = scanner.nextLine();
+					view.tea = Integer.parseInt(input.replaceAll("[^0-9]", ""));
 				}
 				
-				view.setInfo(msg);
 			} catch (Exception ex){
 				ex.printStackTrace();
 			}

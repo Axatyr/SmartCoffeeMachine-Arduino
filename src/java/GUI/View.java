@@ -3,7 +3,10 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.Thread.State;
+
 import javax.swing.*;
+
 
 class View extends JFrame {
 
@@ -16,11 +19,18 @@ class View extends JFrame {
 	private JButton recover;
 	private JTextField infoTextState;
 	private JTextField infoState;
-	private JTextField infoTextTest
+	private JTextField infoTextTest;
 	private JTextField infoTest;
 	private JTextField infoCoffee;
 	private JTextField infoChocolate;
 	private JTextField infoTea;
+	
+	
+	StateMachine state = new StateMachine("Idle");
+	int selfTestPassed = 0;
+	int coffee = 0;
+	int chocolate = 0;
+	int tea = 0;
 	
 	public View(){
 		super("View");
@@ -38,8 +48,6 @@ class View extends JFrame {
 		recover = new JButton("Recover machine");
 		buttonPanel.add(refill);   
 		buttonPanel.add(recover);  
-		refill.addActionListener(ev -> Controller.onRefill());
-		recover.addActionListener(ev -> Controller.onRecover());
 		mainPanel.add(buttonPanel);
 		
 		// State machine and self-test
@@ -92,11 +100,4 @@ class View extends JFrame {
 	public void registerController(Controller contr){
 		refill.addActionListener(contr);
 	}
-
-	public void setInfo(String msg){
-		SwingUtilities.invokeLater(() -> {
-			info.setText(msg);
-		});
-	}
-
 }
